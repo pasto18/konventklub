@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KONVENT KLUB</title>
+    <style>
+        /* --- 1. ESTILOS GENERALES --- */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden; /* Evita scroll horizontal */
+            width: 100%;
+            background-color: black; /* Fondo negro por defecto */
+        }
+
+        /* TIPOGRAFÍA BASE (Escritorio) */
+        h1 {
+            font-size: 14rem;
+            text-transform: uppercase;
+            line-height: .8;
+            color: yellow;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 8rem; /* Bajado un poco para que quepa mejor */
+            text-transform: uppercase;
+            line-height: .9;
+            color: yellow;
+            font-weight: bold;
+            margin: 0;
+            text-align: center; /* Centrado para que se vea mejor */
+        }
+
+        h3 {
+            font-size: 4rem;
+            text-transform: uppercase;
+            line-height: 1.2;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* --- 2. ADAPTACIÓN MÓVIL (MUY IMPORTANTE) --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 4rem; } /* En móvil la letra es más pequeña */
+            h2 { font-size: 3rem; }
+            h3 { font-size: 2rem; }
+            
+            .redes h3 {
+                flex-direction: column; /* Enlaces uno debajo del otro */
+                gap: 20px;
+            }
+            
+            .redes {
+                height: auto; /* Que la altura se adapte al contenido */
+                padding: 40px 0;
+            }
+        }
+
+        /* --- 3. SECCIONES Y CONTENEDORES --- */
+        
+        .seccion {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed; /* Efecto Parallax */
+        }
+
+        .divider {
+            height: 10px;
+            background-color: yellow;
+            width: 100%;
+        }
+
+        /* --- 4. VIDEO BACKGROUND (Para sección 1 y 3) --- */
+        .video-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: black; 
+        }
+
+          .djs {
+            position: relative;
+            height: 70vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: black;
+
+        }
+
+        .video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(60%); /* Oscurecer video */
+        }
+
+        .contenido-video {
+            position: relative;
+            z-index: 2; /* Encima del video */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- 5. IMÁGENES ESPECÍFICAS --- */
+        .disciplinas {
+            
+    height: 20vh;        }
+
+        /* --- 6. REDES SOCIALES --- */
+        .redes {
+            min-height: 20vh; /* Mínimo 20% de altura */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: yellow;
+            width: 100%;
+        }
+
+        /* Aquí aplicamos el Flexbox a los enlaces */
+        .redes h3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5vw; /* Separación relativa */
+            width: 100%;
+            color: rgb(255, 255, 255);
+        }
+
+        /* Estilo de los links */
+        a {
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block; 
+            transition: all 0.1s ease; 
+            border-bottom: 2px solid transparent; /* Preparado para subrayado opcional */
+        }
+
+        a:hover {
+            color: rgb(0, 13, 255); /* Cambio de color al pasar el ratón */
+            transform: scale(1.1); 
+        }
+
+/* --- ESTILOS PARA EL TEXTO INFINITO (MARQUEE) --- */
+
+/* El contenedor que recorta el texto */
+.marquee-container {
+    width: 100%;
+    overflow: hidden; /* Oculta lo que se salga de la pantalla */
+    white-space: nowrap; /* Obliga al texto a estar en una sola línea */
+}
+
+/* La pista que se mueve */
+.marquee-track {
+    display: flex;
+    width: max-content; /* El ancho será la suma de todos los textos */
+    
+    /* ANIMACIÓN: 
+       - nombre: scroll-infinity
+       - duración: 20s (cámbialo para más rápido o lento)
+       - tipo: linear (velocidad constante)
+       - repetición: infinite 
+    */
+    animation: scroll-infinity 20s linear infinite;
+}
+
+/* El estilo del texto en sí */
+.marquee-item {
+    font-size: 8rem; /* Tamaño grande */
+    font-weight: bold;
+    color: yellow;
+    text-transform: uppercase;
+    padding: 0 20px; /* Espacio entre repeticiones */
+    font-family: 'Helvetica', sans-serif;
+}
+
+/* DEFINICIÓN DE LA ANIMACIÓN (Izquierda a Derecha) */
+@keyframes scroll-infinity {
+    100% {
+        transform: translateX(-75%); 
+    }
+    0% {
+        transform: translateX(00%);
+    }
+}
+
+/* AJUSTE PARA MÓVIL */
+@media (max-width: 768px) {
+    .marquee-item {
+        font-size: 4rem; /* Texto más pequeño en móvil */
+    }
+}
+
+
+
+/* --- ESTILOS DE LA GALERÍA DE DJs --- */
+
+/* Contenedor de la fila de DJs */
+.galeria-djs {
+    display: flex;
+    flex-wrap: wrap; /* Si no caben, bajan de línea */
+    justify-content: center; /* Centrados horizontalmente */
+    gap: 20px; /* Espacio entre cada DJ */
+    width: 90%; /* Ancho máximo */
+    margin-top: 0px;
+}
+
+/* La tarjeta individual de cada DJ */
+.dj-item {
+    display: flex;
+    flex-direction: column; /* La foto arriba, nombre abajo */
+    align-items: center;
+    width: 250px; /* Ancho fijo para que todos sean iguales */
+}
+
+/* La foto del DJ */
+.dj-item img {
+    width: 100%; /* Que ocupe todo el ancho de su tarjeta */
+    height: 400px; /* Altura fija para que todas sean iguales */
+    object-fit: cover; /* Recorta la imagen para que no se deforme/estire */
+    border: 0px solid yellow; /* Un borde amarillo queda chulo con tu estilo */
+    margin-bottom: -45px; /* Separación con el nombre */
+    filter: grayscale(100%); /* Opcional: blanco y negro */
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+/* Efecto al pasar el ratón por la foto */
+.dj-item:hover img {
+    filter: grayscale(0%); /* Vuelve a color */
+    transform: scale(1.05); /* Pequeño zoom */
+}
+
+/* El nombre del DJ */
+.dj-item h3 {
+    font-size: 1.8rem; /* Tamaño de letra más pequeño que el título */
+    margin: 0;
+    color: white;
+    z-index: 10;
+}
+
+/* --- AJUSTE RESPONSIVE (MÓVIL) --- */
+@media (max-width: 768px) {
+    .galeria-djs {
+        flex-direction: column; /* Uno encima del otro */
+        align-items: center;
+        gap: 60px; /* Más espacio entre ellos en móvil */
+    }
+
+    /* IMPORTANTE: Permitir que la sección crezca en altura */
+    .section-auto-height {
+        height: auto !important; /* Fuerza altura automática */
+        min-height: 100vh; /* Mínimo una pantalla */
+        padding: 100px 0; /* Un poco de aire arriba y abajo */
+    }
+}
+
+
+
+
+/* --- GALERÍA AUTOMÁTICA FULLSCREEN --- */
+.galeria-container {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Ocupa toda la altura */
+    background-color: black;
+    overflow: hidden;
+}
+
+.galeria-img {
+    position: absolute; /* Para que se monten una encima de otra */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta la imagen para llenar el hueco */
+    
+    opacity: 0; /* Por defecto invisibles */
+    transition: opacity 1s ease-in-out; /* Transición suave de fundido */
+    z-index: 0;
+    filter: saturate(0);
+}
+
+/* La clase que activaremos con JavaScript para mostrar la foto */
+.galeria-img.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- SECCIÓN 1: VIDEO INTRO -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="video-bg">
+            <!-- Recuerda verificar la ruta de tu video -->
+            <source src="videos/KONVENTKLUB-2026-2.mp4" type="video/mp4">
+        </video>
+
+        <div class="contenido-video">
+            <!-- Logo responsivo -->
+            <img src="imgs/KK_logo-amarillo.png" style="max-width: 85%; height: auto;">
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SECCIÓN 2: PARALLAX IMAGEN -->
+    <!-- SECCIÓN 2: TEXTO INFINITO CON FONDO -->
+<div class="seccion disciplinas">
+    
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <!-- Repetimos el texto muchas veces para asegurar que cubra pantallas grandes -->
+            <!-- Es importante que sean DOS BLOQUES idénticos visualmente para el loop -->
+            
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            
+            <!-- DUPLICAMOS LA TANDA PARA QUE EL LOOP SEA INVISIBLE -->
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+
+        </div>
+    </div>
+
+</div>
+    <div class="divider"></div>
+
+
+        <!-- TERCERA SECCIÓN: VIDEO DE FONDO CON GALERÍA -->
+<!-- Añadimos la clase 'section-auto-height' para que en móvil crezca -->
+<div class="djs section-auto-height">
+   
+
+    <!-- Contenido encima -->
+    <div class="contenido-video">
+        
+        <!-- Título opcional, si quieres -->
+        <!-- <h2 style="font-size: 3rem; margin-bottom: 40px;">LINE UP</h2> -->
+
+        <div class="galeria-djs">
+            
+            <!-- DJ 1 -->
+            <div class="dj-item">
+                <img src="imgs/1ldu.jpg" alt="1LDU">
+                <h3>1LDU</h3>
+            </div>
+
+            <!-- DJ 2 -->
+            <div class="dj-item">
+                <img src="imgs/djvalentina.jpg" alt="VALENTINA">
+                <h3>DJ VALENTINA</h3>
+            </div>
+
+            <!-- DJ 3 -->
+            <div class="dj-item">
+                <img src="imgs/fra9il.jpg" alt="FRA9IL">
+                <h3>FRÀ9IL</h3>
+            </div>
+
+            <!-- DJ 4 -->
+            <div class="dj-item">
+                <img src="imgs/copia.jpg" alt="COPIA">
+                <h3>COPIA</h3>
+            </div>
+
+            <!-- DJ 5 -->
+            <div class="dj-item">
+                <img src="imgs/martalofi.jpg" alt="MARTA LOFI">
+                <h3>MARTA LOFI</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <!-- SECCIÓN INTERMEDIA: REDES SOCIALES -->
+    <div class="redes">
+        <!-- Notarás que el CSS ahora apunta correctamente a ".redes h3" -->
+        <h3>
+            <a href="https://www.youtube.com/@konventklub" target="_blank">YOUTUBE</a> 
+            <a href="https://soundcloud.com/konventklub" target="_blank">SOUNDCLOUD</a> 
+            <a href="https://www.instagram.com/konventklub" target="_blank">INSTAGRAM</a>
+        </h3>
+    </div>
+    <div class="divider"></div>
+  
+
+
+
+<!-- SECCIÓN GALERÍA AUTOMÁTICA -->
+<div class="galeria-container" id="miGalería">
+    
+    <!-- FOTO 1 (La primera debe llevar la clase 'active' para que se vea al cargar) -->
+    <img src="https://picsum.photos/1920/1080?random=10" class="galeria-img active" alt="Foto 1">
+    
+    <!-- FOTO 2 -->
+    <img src="https://picsum.photos/1920/1080?random=11" class="galeria-img" alt="Foto 2">
+    
+    <!-- FOTO 3 -->
+    <img src="https://picsum.photos/1920/1080?random=12" class="galeria-img" alt="Foto 3">
+    
+    <!-- FOTO 4 -->
+    <img src="https://picsum.photos/1920/1080?random=13" class="galeria-img" alt="Foto 4">
+
+    <!-- Añade tantas líneas <img> como fotos tengas -->
+
+</div>
+
+
+
+
+<script>
+    // Configuración
+    const tiempoEspera = 2000; // 2000 milisegundos = 2 segundos
+    
+    // Seleccionamos todas las imágenes dentro del contenedor
+    const imagenes = document.querySelectorAll('.galeria-container .galeria-img');
+    let indiceActual = 0; // Empezamos por la primera (posición 0)
+
+    function siguienteImagen() {
+        // 1. Quitamos la clase 'active' de la imagen actual (se desvanece)
+        imagenes[indiceActual].classList.remove('active');
+
+        // 2. Calculamos cuál es la siguiente
+        // El operador % sirve para que cuando llegue a la última, vuelva a la 0
+        indiceActual = (indiceActual + 1) % imagenes.length;
+
+        // 3. Le ponemos la clase 'active' a la nueva imagen (aparece)
+        imagenes[indiceActual].classList.add('active');
+    }
+
+    // Iniciamos el temporizador infinito
+    setInterval(siguienteImagen, tiempoEspera);
+</script>
+</body>
+</html>
+
+</body>
+</html>
