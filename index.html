@@ -11,9 +11,9 @@
             margin: 0;
             font-family: 'Helvetica', 'Arial', sans-serif;
             scroll-behavior: smooth;
-            overflow-x: hidden; /* Evita scroll horizontal */
+            overflow-x: hidden;
             width: 100%;
-            background-color: black; /* Fondo negro por defecto */
+            background-color:transparent;
         }
 
         /* TIPOGRAFÍA BASE (Escritorio) */
@@ -27,13 +27,13 @@
         }
 
         h2 {
-            font-size: 8rem; /* Bajado un poco para que quepa mejor */
+            font-size: 8rem;
             text-transform: uppercase;
             line-height: .9;
             color: yellow;
             font-weight: bold;
             margin: 0;
-            text-align: center; /* Centrado para que se vea mejor */
+            text-align: center;
         }
 
         h3 {
@@ -41,41 +41,100 @@
             text-transform: uppercase;
             line-height: 1.2;
             text-align: center;
-            color: rgb(255, 255, 255);
+            color: yellow;
             font-weight: bold;
             margin: 0;
+            /* QUITADO: background-color y height fijo para evitar problemas */
+        }
+
+        /* ESTILO DEL TEXTO LARGO (H4) */
+        h4 {
+            font-size: 2rem;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.4; /* Un poco más de aire entre líneas */
+            text-align: justify;
+            color: yellow;
+            font-weight: normal;
+            margin: 0;
+            /* Lógica responsive para el ancho del texto */
+            width: 60%; /* En escritorio es estrecho para leerse mejor */
+            max-width: 900px;
         }
 
         /* --- 2. ADAPTACIÓN MÓVIL (MUY IMPORTANTE) --- */
         @media (max-width: 768px) {
-            h1 { font-size: 4rem; } /* En móvil la letra es más pequeña */
+            h1 { font-size: 4rem; }
             h2 { font-size: 3rem; }
             h3 { font-size: 2rem; }
             
-            .redes h3 {
-                flex-direction: column; /* Enlaces uno debajo del otro */
-                gap: 20px;
+            /* Ajuste H4 para móvil */
+            h4 { 
+                font-size: 1.1rem; /* Letra más pequeña para lectura cómoda */
+                width: 90%; /* Aprovechamos casi todo el ancho de la pantalla */
+                line-height: 1.5;
             }
             
             .redes {
-                height: auto; /* Que la altura se adapte al contenido */
                 padding: 40px 0;
+            }
+            
+            .redes h3 {
+                flex-direction: column;
+                gap: 20px;
             }
         }
 
-        /* --- 3. SECCIONES Y CONTENEDORES --- */
-        
-        .seccion {
-            height: 100vh;
+        /* --- 3. SECCIONES Y VIDEO FIJO --- */
+        .video-fijo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1; 
+            object-fit: cover;
+            filter: brightness(60%);
+            z-index: -1;
+        }
+
+        .video-container {
+            position: relative;
+            height: 86vh; /* Altura de la primera pantalla */
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contenido-video {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- SECCIÓN DE TEXTO AMARILLO --- */
+        .texto {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed; /* Efecto Parallax */
+            background-color: rgb(0, 0, 0);
+            width: 100%;
+            z-index: 2;
+            
+            /* LA CLAVE PARA QUE NO SE CORTE EN MÓVIL: */
+            min-height: 50vh; /* Mínimo media pantalla, pero puede crecer */
+            padding: 60px 0; /* Aire arriba y abajo para que el texto respire */
         }
 
         .divider {
@@ -84,413 +143,411 @@
             width: 100%;
         }
 
-        /* --- 4. VIDEO BACKGROUND (Para sección 1 y 3) --- */
-        .video-container {
-            position: relative;
-            height: 100vh;
+        /* --- MARQUEE (TEXTO INFINITO) --- */
+        .disciplinas {
+            height: 12vh; /* Altura fija para la tira negra */
+            background-color: black;  
+            display: flex;
+            align-items: center; /* Centrar texto verticalmente */
+            overflow: hidden;
+        }
+
+        .marquee-container {
             width: 100%;
             overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background-color: black; 
+            width: max-content;
+            /* Animación corregida para loop perfecto */
+            animation: scroll-infinity 30s linear infinite;
         }
 
-          .djs {
-            position: relative;
-            height: 70vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background-color: black;
-
-        }
-
-        .video-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(60%); /* Oscurecer video */
-        }
-
-        .contenido-video {
-            position: relative;
-            z-index: 2; /* Encima del video */
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* --- 5. IMÁGENES ESPECÍFICAS --- */
-        .disciplinas {
-            
-    height: 20vh;        }
-
-<<<<<<< HEAD
-    @media screen and (max-width: 768px) {
-        .disciplinas {
-            height: 12vh; /* Más alto en móvil para que se vea bien */
-        }
-        
-    }
-
-=======
->>>>>>> 9bf755a6d44b25a72ce6fe2e8e039004d3dee850
-        /* --- 6. REDES SOCIALES --- */
-        .redes {
-            min-height: 20vh; /* Mínimo 20% de altura */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: yellow;
-            width: 100%;
-        }
-
-        /* Aquí aplicamos el Flexbox a los enlaces */
-        .redes h3 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5vw; /* Separación relativa */
-            width: 100%;
-            color: rgb(255, 255, 255);
-        }
-
-        /* Estilo de los links */
-        a {
-            color: black;
+        .marquee-item {
+            font-size: 12rem; /* Ajustado para que no sea excesivo */
             font-weight: bold;
-            text-decoration: none;
-            display: inline-block; 
-            transition: all 0.1s ease; 
-            border-bottom: 2px solid transparent; /* Preparado para subrayado opcional */
+            color: yellow;
+            text-transform: uppercase;
+            padding: 0 10px;
+            font-family: 'Helvetica', sans-serif;
+            line-height: 1; /* Evita espacios extra verticales */
+            
+            /* Quitamos el translateY negativo que deformaba la posición */
+            transform: none; 
         }
 
-        a:hover {
-            color: rgb(0, 13, 255); /* Cambio de color al pasar el ratón */
-            transform: scale(1.1); 
+        @keyframes scroll-infinity {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); } /* Se mueve justo la mitad (un set entero) */
         }
 
-/* --- ESTILOS PARA EL TEXTO INFINITO (MARQUEE) --- */
+        /* Ajuste Marquee Móvil */
+        @media (max-width: 768px) {
+            .disciplinas { height: 10vh; }
+            .marquee-item { 
+                font-size: 7.5rem; /* Tamaño equilibrado para móvil */
+            }
+        }
 
-/* El contenedor que recorta el texto */
-.marquee-container {
+
+       /* --- GALERÍA DJS (SISTEMA SIN HUECOS) --- */
+
+.djs {
+    position: relative;
     width: 100%;
-    overflow: hidden; /* Oculta lo que se salga de la pantalla */
-    white-space: nowrap; /* Obliga al texto a estar en una sola línea */
+    /* En escritorio ocupamos toda la pantalla */
+    height: 100vh; 
+    background-color: black;
+    /* Quitamos cualquier padding o margin */
+    padding: 0; 
+    margin: 0;
+    overflow: hidden;
 }
 
-/* La pista que se mueve */
-.marquee-track {
-    display: flex;
-    width: max-content; /* El ancho será la suma de todos los textos */
-    
-    /* ANIMACIÓN: 
-       - nombre: scroll-infinity
-       - duración: 20s (cámbialo para más rápido o lento)
-       - tipo: linear (velocidad constante)
-       - repetición: infinite 
-    */
-    animation: scroll-infinity 20s linear infinite;
+/* El contenedor interno debe ocupar todo */
+.djs .contenido-video {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: block; /* Importante: quitamos flex aquí para evitar centrados raros */
 }
 
-/* El estilo del texto en sí */
-.marquee-item {
-    font-size: 8rem; /* Tamaño grande */
-    font-weight: bold;
-    color: yellow;
-    text-transform: uppercase;
-    padding: 0 20px; /* Espacio entre repeticiones */
-    font-family: 'Helvetica', sans-serif;
-}
-
-/* DEFINICIÓN DE LA ANIMACIÓN (Izquierda a Derecha) */
-@keyframes scroll-infinity {
-    100% {
-        transform: translateX(-75%); 
-    }
-    0% {
-        transform: translateX(00%);
-    }
-}
-
-/* AJUSTE PARA MÓVIL */
-@media (max-width: 768px) {
-    .marquee-item {
-        font-size: 4rem; /* Texto más pequeño en móvil */
-    }
-}
-
-
-
-/* --- ESTILOS DE LA GALERÍA DE DJs --- */
-
-/* Contenedor de la fila de DJs */
 .galeria-djs {
     display: flex;
-    flex-wrap: wrap; /* Si no caben, bajan de línea */
-    justify-content: center; /* Centrados horizontalmente */
-    gap: 20px; /* Espacio entre cada DJ */
-    width: 90%; /* Ancho máximo */
-    margin-top: 0px;
-}
-
-/* La tarjeta individual de cada DJ */
-.dj-item {
-    display: flex;
-    flex-direction: column; /* La foto arriba, nombre abajo */
-    align-items: center;
-    width: 250px; /* Ancho fijo para que todos sean iguales */
-}
-
-/* La foto del DJ */
-.dj-item img {
-    width: 100%; /* Que ocupe todo el ancho de su tarjeta */
-    height: 400px; /* Altura fija para que todas sean iguales */
-    object-fit: cover; /* Recorta la imagen para que no se deforme/estire */
-    border: 0px solid yellow; /* Un borde amarillo queda chulo con tu estilo */
-    margin-bottom: -45px; /* Separación con el nombre */
-    filter: grayscale(100%); /* Opcional: blanco y negro */
-    transition: all 0.3s ease;
-    border-radius: 20px;
-}
-
-/* Efecto al pasar el ratón por la foto */
-.dj-item:hover img {
-    filter: grayscale(0%); /* Vuelve a color */
-    transform: scale(1.05); /* Pequeño zoom */
-}
-
-/* El nombre del DJ */
-.dj-item h3 {
-    font-size: 1.8rem; /* Tamaño de letra más pequeño que el título */
+    width: 100%;
+    height: 100%;
     margin: 0;
-    color: white;
+    padding: 0;
+}
+
+.dj-item {
+    position: relative;
+    /* Flex 1 hace que se repartan el ancho equitativamente en escritorio */
+    flex: 1; 
+    height: 100%; 
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estado normal: Blanco y negro */
+.dj-item img, 
+.dj-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%); /* B/N por defecto */
+    transition: filter 0.5s ease, transform 0.3s ease;
+}
+
+/* Estado Hover: Color mientras pasas el ratón */
+.dj-item:hover img, 
+.dj-item:hover video {
+    filter: grayscale(0%);
+}
+
+/* Estado ACTIVO (Con sonido): Forzamos color SIEMPRE */
+/* Usamos el nombre del contenedor + la clase para asegurar prioridad */
+.dj-item.con-audio img, 
+.dj-item.con-audio video {
+    filter: grayscale(0%) !important;
+    transform: scale(1.02);
+    outline: 2px solid yellow; /* Opcional: un toque de luz */
+}
+
+.dj-item h3 {
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    color: transparent; 
+    -webkit-text-stroke: 1px rgb(255, 255, 255);
     z-index: 10;
+    pointer-events: none;
+    margin: 0;
+    writing-mode: vertical-lr;
+text-orientation: upright;
 }
 
 /* --- AJUSTE RESPONSIVE (MÓVIL) --- */
 @media (max-width: 768px) {
+    /* Permitimos que la sección crezca lo que necesite */
+    .djs.section-auto-height {
+        height: auto !important;
+        min-height: 100vh;
+    }
+
     .galeria-djs {
-        flex-direction: column; /* Uno encima del otro */
-        align-items: center;
-        gap: 60px; /* Más espacio entre ellos en móvil */
+        flex-direction: column; /* Apilados verticalmente */
     }
-
-    /* IMPORTANTE: Permitir que la sección crezca en altura */
-    .section-auto-height {
-        height: auto !important; /* Fuerza altura automática */
-        min-height: 100vh; /* Mínimo una pantalla */
-        padding: 100px 0; /* Un poco de aire arriba y abajo */
-    }
-}
-
-
-
-
-/* --- GALERÍA AUTOMÁTICA FULLSCREEN --- */
-.galeria-container {
-    position: relative;
-    width: 100%;
-    height: 70vh; /* Ocupa toda la altura */
-    background-color: black;
-    overflow: hidden;
-}
-
-.galeria-img {
-    position: absolute; /* Para que se monten una encima de otra */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Recorta la imagen para llenar el hueco */
     
-    opacity: 0; /* Por defecto invisibles */
-    transition: opacity 1s ease-in-out; /* Transición suave de fundido */
-    z-index: 0;
-    filter: saturate(0);
+    .dj-item {
+        width: 100%; /* Ocupan todo el ancho */
+        /* Quitamos max-width para que toquen los bordes laterales */
+        max-width: none; 
+        
+        /* Definimos la altura de cada DJ en móvil */
+        height: 20vh; /* Si tienes 5 DJs, 20vh x 5 = 100vh (pantalla completa) */
+        max-height: 300px; /* Por seguridad, para que no queden muy finos */
+    }
+
+    .dj-item img {
+        height: 100%; /* Forzamos a que llene su caja */
+    }
+    
+    .dj-item h3 {
+        font-size: 2.5rem; /* Texto un poco más pequeño en móvil */
+        writing-mode: horizontal-tb ;
+        left: 50%;
+    }
+
+   
 }
 
-/* La clase que activaremos con JavaScript para mostrar la foto */
-.galeria-img.active {
-    opacity: 1;
-    z-index: 1;
+        /* --- REDES --- */
+        .redes {
+            min-height: 10vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(0, 0, 0);
+            width: 100%;
+        }
+/* Contenedor de las redes */
+.redes h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espacio fijo entre botones */
+    width: 100%;
+    background-color: transparent;
+    height: auto;
+    flex-wrap: wrap; /* Para que en móvil no se corten */
+    color: yellow;
+    margin-bottom: 5vh;
 }
 
+/* Estilo de los botones */
+.redes a {
+    color: yellow;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 2.2rem;
+    padding: 12px 30px; /* Espacio interno */
+    border: 2px solid yellow; /* El borde que pediste */
+    border-radius: 50px; /* Bordes totalmente redondeados */
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Efecto al pasar el ratón por los botones */
+.redes a:hover {
+    background-color: yellow; /* Invertimos colores */
+    color: black;
+    transform: translateY(-3px); /* Pequeño salto hacia arriba */
+}
+
+@media (max-width: 768px) {
+    .redes a {
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        width: 80%; /* Botones casi anchos en móvil */
+        text-align: center;
+    }
+}
+        
+        /* Ajuste de color para redes en fondo amarillo para legibilidad */
 
 
 
+        /* --- GALERÍA AUTOMÁTICA --- */
+        .galeria-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+        }
+
+        .galeria-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 0;
+            filter: saturate(0);
+        }
+
+        .galeria-img.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+
+        
     </style>
 </head>
 <body>
 
-    <!-- SECCIÓN 1: VIDEO INTRO -->
+    <!-- SECCIÓN 1: VIDEO INTRO (PARALLAX) -->
     <div class="video-container">
-        <video autoplay muted loop playsinline class="video-bg">
-            <!-- Recuerda verificar la ruta de tu video -->
+        <video autoplay muted loop playsinline class="video-fijo">
             <source src="videos/KONVENTKLUB-2026-2.mp4" type="video/mp4">
         </video>
 
         <div class="contenido-video">
-            <!-- Logo responsivo -->
             <img src="imgs/KK_logo-amarillo.png" style="max-width: 85%; height: auto;">
         </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- SECCIÓN 2: PARALLAX IMAGEN -->
-    <!-- SECCIÓN 2: TEXTO INFINITO CON FONDO -->
-<div class="seccion disciplinas">
-    
-    <div class="marquee-container">
-        <div class="marquee-track">
-            <!-- Repetimos el texto muchas veces para asegurar que cubra pantallas grandes -->
-            <!-- Es importante que sean DOS BLOQUES idénticos visualmente para el loop -->
-            
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            
-            <!-- DUPLICAMOS LA TANDA PARA QUE EL LOOP SEA INVISIBLE -->
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-            <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
-
+    <!-- SECCIÓN 2: TEXTO INFINITO -->
+    <div class="seccion disciplinas">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <!-- Set 1 -->
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+                
+                <!-- Set 2 (DUPLICADO EXACTO PARA EL LOOP) -->
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+                <span class="marquee-item">DJ / LIVE SETS / VISUALS / </span>
+            </div>
         </div>
     </div>
 
-</div>
     <div class="divider"></div>
 
+    <!-- SECCIÓN TEXTO DESCRIPTIVO (Corregido H4) -->
+    <div class="texto">
+        <h4>KONVENT KLUB és la proposta clubbing del col·lectiu artístic del Konvent, nascuda a l’antic convent de Cal Rosal. 
+        Un projecte itinerant que concep la pista de ball com un espai de catarsi col·lectiva, trobada i experimentació artística, amb música i visuals.
+        <br><br>
+        Amb una línia musical oberta i eclèctica, Konvent Klub defuig etiquetes fixes i aposta per una selecció arriscada, en constant mutació. 
+        L’experiència es completa amb un fort component visual, peça clau del projecte. A través del videoart i la llum, amb una estètica lo-fi cuidada.
+        <br><br>
+        Konvent Klub és un espai comunitari on so i imatge es troben per redefinir el ritual del ball contemporani.
+        </h4>
+    </div>  
 
-        <!-- TERCERA SECCIÓN: VIDEO DE FONDO CON GALERÍA -->
-<!-- Añadimos la clase 'section-auto-height' para que en móvil crezca -->
-<div class="djs section-auto-height">
-   
-
-    <!-- Contenido encima -->
-    <div class="contenido-video">
-        
-        <!-- Título opcional, si quieres -->
-        <!-- <h2 style="font-size: 3rem; margin-bottom: 40px;">LINE UP</h2> -->
-
-        <div class="galeria-djs">
-            
-            <!-- DJ 1 -->
-            <div class="dj-item">
-                <img src="imgs/1ldu.jpg" alt="1LDU">
-                <h3>1LDU</h3>
-            </div>
-
-            <!-- DJ 2 -->
-            <div class="dj-item">
-                <img src="imgs/djvalentina.jpg" alt="VALENTINA">
-                <h3>DJ VALENTINA</h3>
-            </div>
-
-            <!-- DJ 3 -->
-            <div class="dj-item">
-                <img src="imgs/fra9il.jpg" alt="FRA9IL">
-                <h3>FRÀ9IL</h3>
-            </div>
-
-            <!-- DJ 4 -->
-            <div class="dj-item">
-                <img src="imgs/copia.jpg" alt="COPIA">
-                <h3>COPIA</h3>
-            </div>
-
-            <!-- DJ 5 -->
-            <div class="dj-item">
-                <img src="imgs/martalofi.jpg" alt="MARTA LOFI">
-                <h3>MARTA LOFI</h3>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-    <!-- SECCIÓN INTERMEDIA: REDES SOCIALES -->
+    <!-- SECCIÓN REDES SOCIALES -->
     <div class="redes">
-        <!-- Notarás que el CSS ahora apunta correctamente a ".redes h3" -->
         <h3>
             <a href="https://www.youtube.com/@konventklub" target="_blank">YOUTUBE</a> 
-            <a href="https://soundcloud.com/konventklub" target="_blank">SOUNDCLOUD</a> 
+            <a href="https://www.mixcloud.com/KonventKlub/" target="_blank">MIXCLOUD</a> 
             <a href="https://www.instagram.com/konventklub" target="_blank">INSTAGRAM</a>
         </h3>
     </div>
-    <div class="divider"></div>
-  
 
+    <!-- TERCERA SECCIÓN: DJS (Corregido altura móvil) -->
+    <div class="djs section-auto-height">
+        
+        <div class="contenido-video">
+            <div class="galeria-djs">
+                <div class="dj-item">
+  <video autoplay muted loop>
+                        <source src="videos/vid-1ldu.mp4" type="video/mp4">
+                    </video>                    <h3>1LDU</h3>
+                </div>
 
+                <div class="dj-item">
+                    <video autoplay muted loop>
+                        <source src="videos/vid-valentina.mp4" type="video/mp4">
+                    </video>
+                    <h3>DJ.VALENTINA</h3>
+                </div>
 
-<!-- SECCIÓN GALERÍA AUTOMÁTICA -->
-<div class="galeria-container" id="miGalería">
-    
-    <!-- FOTO 1 (La primera debe llevar la clase 'active' para que se vea al cargar) -->
-    <img src="https://picsum.photos/1920/1080?random=10" class="galeria-img active" alt="Foto 1">
-    
-    <!-- FOTO 2 -->
-    <img src="https://picsum.photos/1920/1080?random=11" class="galeria-img" alt="Foto 2">
-    
-    <!-- FOTO 3 -->
-    <img src="https://picsum.photos/1920/1080?random=12" class="galeria-img" alt="Foto 3">
-    
-    <!-- FOTO 4 -->
-    <img src="https://picsum.photos/1920/1080?random=13" class="galeria-img" alt="Foto 4">
+                <div class="dj-item">
+                      <video autoplay muted loop playsinline>
+                        <source src="videos/vid-fragil.mp4" type="video/mp4">
+                    </video>
+                    <h3>FRÀ9IL</h3>
+                </div>
+                <div class="dj-item">
+                    <video autoplay muted loop>
+                        <source src="videos/vid-copia.mp4" type="video/mp4">
+                    </video>
+                    <h3>COPIA</h3>
+                </div>
+                <div class="dj-item">
+  <video autoplay muted loop>
+                        <source src="videos/vid-copia.mp4" type="video/mp4">
+                    </video>                    <h3>MARTA.LOFI</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Añade tantas líneas <img> como fotos tengas -->
+    <!-- SECCIÓN GALERÍA AUTOMÁTICA -->
+    <div class="galeria-container" id="miGalería">
+        <img src="https://picsum.photos/1920/1080?random=10" class="galeria-img active" alt="Foto 1">
+        <img src="https://picsum.photos/1920/1080?random=11" class="galeria-img" alt="Foto 2">
+        <img src="https://picsum.photos/1920/1080?random=12" class="galeria-img" alt="Foto 3">
+        <img src="https://picsum.photos/1920/1080?random=13" class="galeria-img" alt="Foto 4">
+    </div>
 
-</div>
+    <script>
+        const tiempoEspera = 2000; 
+        const imagenes = document.querySelectorAll('.galeria-container .galeria-img');
+        let indiceActual = 0; 
 
+        function siguienteImagen() {
+            imagenes[indiceActual].classList.remove('active');
+            indiceActual = (indiceActual + 1) % imagenes.length;
+            imagenes[indiceActual].classList.add('active');
+        }
 
+        setInterval(siguienteImagen, tiempoEspera);
+    </script>
 
+    <script>
+    // Seleccionamos todos los bloques de DJ
+    const djItems = document.querySelectorAll('.dj-item');
 
-<script>
-    // Configuración
-    const tiempoEspera = 2000; // 2000 milisegundos = 2 segundos
-    
-    // Seleccionamos todas las imágenes dentro del contenedor
-    const imagenes = document.querySelectorAll('.galeria-container .galeria-img');
-    let indiceActual = 0; // Empezamos por la primera (posición 0)
+    djItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const video = item.querySelector('video');
+            
+            // Si el bloque tiene un video...
+            if (video) {
+                // Guardamos el estado actual (si ya tenía sonido o no)
+                const estaSilenciado = video.muted;
 
-    function siguienteImagen() {
-        // 1. Quitamos la clase 'active' de la imagen actual (se desvanece)
-        imagenes[indiceActual].classList.remove('active');
+                // 1. SILENCIAMOS TODOS los videos de la galería y quitamos la clase visual
+                djItems.forEach(otroItem => {
+                    const otroVideo = otroItem.querySelector('video');
+                    if (otroVideo) otroVideo.muted = true;
+                    otroItem.classList.remove('con-audio');
+                });
 
-        // 2. Calculamos cuál es la siguiente
-        // El operador % sirve para que cuando llegue a la última, vuelva a la 0
-        indiceActual = (indiceActual + 1) % imagenes.length;
-
-        // 3. Le ponemos la clase 'active' a la nueva imagen (aparece)
-        imagenes[indiceActual].classList.add('active');
-    }
-
-    // Iniciamos el temporizador infinito
-    setInterval(siguienteImagen, tiempoEspera);
+                // 2. Si el que clickeamos estaba silenciado, lo activamos
+                if (estaSilenciado) {
+                    video.muted = false;
+                    item.classList.add('con-audio');
+                } else {
+                    // Si ya tenía sonido y hacemos click, se silencia
+                    video.muted = true;
+                    item.classList.remove('con-audio');
+                }
+            }
+        });
+    });
 </script>
-</body>
-</html>
-
 </body>
 </html>
