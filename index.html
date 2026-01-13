@@ -96,7 +96,7 @@
             transform: translate(-50%, -50%);
             z-index: -1; 
             object-fit: cover;
-            filter: brightness(60%);
+            filter: brightness(100%) contrast(120%);
             z-index: -1;
         }
 
@@ -240,8 +240,9 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(100%); /* B/N por defecto */
+    filter: grayscale(100%) brightness(50%) contrast(150%); /* B/N por defecto */
     transition: filter 0.5s ease, transform 0.3s ease;
+    
 }
 
 /* Estado Hover: Color mientras pasas el ratón */
@@ -267,7 +268,7 @@
     width: 100%;
     text-align: center;
     font-size: 3rem;
-    color: transparent; 
+    color: white; 
     -webkit-text-stroke: 1px rgb(255, 255, 255);
     z-index: 10;
     pointer-events: none;
@@ -294,12 +295,15 @@ text-orientation: upright;
         max-width: none; 
         
         /* Definimos la altura de cada DJ en móvil */
-        height: 20vh; /* Si tienes 5 DJs, 20vh x 5 = 100vh (pantalla completa) */
+        height: 30vh; /* Si tienes 5 DJs, 20vh x 5 = 100vh (pantalla completa) */
         max-height: 300px; /* Por seguridad, para que no queden muy finos */
     }
 
-    .dj-item img {
+    .dj-item img,
+    .dj-item video {
         height: 100%; /* Forzamos a que llene su caja */
+        object-position: center 25%; 
+
     }
     
     .dj-item h3 {
@@ -384,9 +388,7 @@ text-orientation: upright;
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
             z-index: 0;
-            filter: saturate(0);
         }
 
         .galeria-img.active {
@@ -461,13 +463,13 @@ text-orientation: upright;
         <div class="contenido-video">
             <div class="galeria-djs">
                 <div class="dj-item">
-  <video autoplay muted loop>
+                      <video autoplay muted loop playsinline>
                         <source src="videos/vid-1ldu.mp4" type="video/mp4">
                     </video>                    <h3>1LDU</h3>
                 </div>
 
                 <div class="dj-item">
-                    <video autoplay muted loop>
+                      <video autoplay muted loop playsinline>
                         <source src="videos/vid-valentina.mp4" type="video/mp4">
                     </video>
                     <h3>DJ.VALENTINA</h3>
@@ -480,13 +482,13 @@ text-orientation: upright;
                     <h3>FRÀ9IL</h3>
                 </div>
                 <div class="dj-item">
-                    <video autoplay muted loop>
+                      <video autoplay muted loop playsinline>
                         <source src="videos/vid-copia.mp4" type="video/mp4">
                     </video>
                     <h3>COPIA</h3>
                 </div>
                 <div class="dj-item">
-  <video autoplay muted loop>
+                      <video autoplay muted loop playsinline>
                         <source src="videos/vid-copia.mp4" type="video/mp4">
                     </video>                    <h3>MARTA.LOFI</h3>
                 </div>
@@ -496,14 +498,14 @@ text-orientation: upright;
 
     <!-- SECCIÓN GALERÍA AUTOMÁTICA -->
     <div class="galeria-container" id="miGalería">
-        <img src="https://picsum.photos/1920/1080?random=10" class="galeria-img active" alt="Foto 1">
+        <img src="imgs/galeria/kk_2025-reus-12-12-5.webp" class="galeria-img active" alt="Foto 1">
         <img src="https://picsum.photos/1920/1080?random=11" class="galeria-img" alt="Foto 2">
         <img src="https://picsum.photos/1920/1080?random=12" class="galeria-img" alt="Foto 3">
         <img src="https://picsum.photos/1920/1080?random=13" class="galeria-img" alt="Foto 4">
     </div>
 
     <script>
-        const tiempoEspera = 2000; 
+        const tiempoEspera = 4000; 
         const imagenes = document.querySelectorAll('.galeria-container .galeria-img');
         let indiceActual = 0; 
 
