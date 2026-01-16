@@ -119,6 +119,7 @@
             justify-content: center;
             flex-direction: column;
             align-items: center;
+            z-index: 10;
         }
 
         /* --- SECCIÓN DE TEXTO AMARILLO --- */
@@ -242,7 +243,6 @@
     display: block;
     filter: grayscale(100%) brightness(50%) contrast(150%); /* B/N por defecto */
     transition: filter 0.5s ease, transform 0.3s ease;
-    
 }
 
 /* Estado Hover: Color mientras pasas el ratón */
@@ -496,13 +496,14 @@ text-orientation: upright;
         </div>
     </div>
 
-    <!-- SECCIÓN GALERÍA AUTOMÁTICA -->
+    <!-- SECCIÓN GALERÍA AUTOMÁTICA (DESACTIVADA) 
     <div class="galeria-container" id="miGalería">
         <img src="imgs/galeria/kk_2025-reus-12-12-5.webp" class="galeria-img active" alt="Foto 1">
         <img src="https://picsum.photos/1920/1080?random=11" class="galeria-img" alt="Foto 2">
         <img src="https://picsum.photos/1920/1080?random=12" class="galeria-img" alt="Foto 3">
         <img src="https://picsum.photos/1920/1080?random=13" class="galeria-img" alt="Foto 4">
     </div>
+    -->
 
     <script>
         const tiempoEspera = 4000; 
